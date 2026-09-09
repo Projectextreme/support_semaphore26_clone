@@ -252,6 +252,31 @@ body {
 .events-page-head { max-width: 720px; margin: 0 auto 1.5rem; }
 .events-page-head > p { margin: .8rem auto 0; color: var(--text-secondary); line-height: 1.65; }
 .events-count { display: block; margin-top: .7rem; color: #6366f1; font-size: .78rem; font-weight: 700; }
+.events-brochure-download {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .72rem 1rem;
+  border-radius: .7rem;
+  color: #03202d;
+  background: linear-gradient(135deg, #38bdf8, #2dd4bf);
+  box-shadow: 0 8px 22px rgba(14,165,233,.2);
+  font-size: .86rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.events-brochure-cta { margin-top: 1.15rem; }
+.events-brochure-cta p {
+  margin: 0 0 .55rem;
+  color: #91adbb;
+  font-size: .82rem;
+  font-weight: 600;
+}
+.events-brochure-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 28px rgba(14,165,233,.3);
+}
 .events-search-wrap { max-width: 540px; margin: 0 auto 2.5rem; }
 .event-guidelines-banner { width: min(860px, 100%); margin: 0 auto 1.35rem; padding: 1rem 1.15rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid #fcd34d; border-radius: .9rem; color: #422006; background: #fffbeb; text-align: left; cursor: pointer; box-shadow: var(--shadow-sm); }
 .event-guidelines-banner > span:first-child { display: grid; gap: .25rem; }
@@ -311,6 +336,11 @@ body {
 .event-modal-fact small, .event-modal-fact strong { display: block; }
 .event-modal-fact small { margin-bottom: .2rem; color: #64748b; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .event-modal-fact strong { overflow-wrap: anywhere; color: #1e293b; font-size: .82rem; line-height: 1.35; }
+.event-modal-session-list { display: grid; gap: .5rem; }
+.event-modal-session { display: grid; gap: .18rem; }
+.event-modal-session + .event-modal-session { padding-top: .5rem; border-top: 1px solid rgba(125,211,252,.12); }
+.event-modal-session > span { display: flex; align-items: flex-start; gap: .25rem; color: #91adbb; font-size: .72rem; line-height: 1.35; }
+.event-modal-session svg { flex: 0 0 auto; margin-top: .08rem; color: #2dd4bf; }
 .event-modal-section { margin-top: 1.5rem; }
 .event-modal-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
 .event-modal-section-heading h3 { margin: 0; color: #1e293b; font-size: 1rem; }

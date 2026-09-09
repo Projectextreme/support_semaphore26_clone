@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
-import { IconCalendar, IconSearch, IconUser } from './Icons';
+import { IconCalendar, IconDownload, IconSearch, IconUser } from './Icons';
 import { EventModal } from './EventModal';
+import brochurePdf from '../assets/Semaphore2k26_brochure.pdf';
 
 export function EventSection({ events = [], guidelines, globalSearch = '' }) {
   const [localSearch, setLocalSearch] = useState('');
@@ -75,6 +76,19 @@ export function EventSection({ events = [], guidelines, globalSearch = '' }) {
           <span className="events-count">
             {events.length} {events.length === 1 ? 'competition' : 'competitions'}
           </span>
+
+          <div className="events-brochure-cta">
+            <p>Complete event schedule for the 17th &amp; 18th</p>
+            <a
+              className="events-brochure-download"
+              href={brochurePdf}
+              download="Semaphore2k26_Brochure.pdf"
+              aria-label="Download the Semaphore 2K26 brochure and check event timings"
+            >
+              <IconDownload size={17} aria-hidden="true" />
+              Download Event Brochure
+            </a>
+          </div>
         </div>
 
         {/* Guidelines Banner */}

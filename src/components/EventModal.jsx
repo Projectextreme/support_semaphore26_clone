@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { IconX, IconUser, IconPhone, IconWhatsApp, IconCheck } from './Icons';
+import { IconX, IconUser, IconPhone, IconWhatsApp, IconCheck, IconClock, IconMapPin } from './Icons';
 
 function CoordinatorCard({ coordinator }) {
   if (!coordinator) return null;
@@ -68,9 +68,27 @@ export function EventModal({ event, onClose }) {
         </header>
 
         <div className="event-modal-body">
-          {event.participants > 0 && (
-            <div className="event-modal-facts event-modal-facts-single" aria-label="Event information">
-              <div className="event-modal-fact"><IconUser size={19} /><span><small>Participants</small><strong>{event.participants}</strong></span></div>
+          {(event.participants > 0 || event.schedule?.length > 0) && (
+            <div className="event-modal-facts" aria-label="Event information">
+              {event.participants > 0 && (
+                <div className="event-modal-fact"><IconUser size={19} /><span><small>Participants</small><strong>{event.participants}</strong></span></div>
+              )}
+              {event.schedule?.map((day) => (
+                <div className="event-modal-fact event-modal-schedule-fact" key={day.dayId}>
+                  <IconClock size={19} />
+                  <span>
+                    <small>{day.day} · {day.date}</small>
+                    <span className="event-modal-session-list">
+                      {day.sessions.map((session) => (
+                        <span className="event-modal-session" key={session.id}>
+                          <strong>{session.timings.start} – {session.timings.end}</strong>
+                          <span><IconMapPin size={12} aria-hidden="true" /> {session.venue}</span>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+              ))}
             </div>
           )}
 
@@ -78,7 +96,6 @@ export function EventModal({ event, onClose }) {
             <section className="event-modal-section">
               <div className="event-modal-section-heading">
                 <h3>Rules &amp; guidelines</h3>
-                <span>{event.rules.length} points</span>
               </div>
               <ul className="event-rules-list">
                 {event.rules.map((rule, index) => (

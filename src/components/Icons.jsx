@@ -3,6 +3,7 @@ export {
   SquareCheckBig as IconCheckSquare,
   Square as IconSquare,
   Printer as IconPrinter,
+  Download as IconDownload,
   RotateCcw as IconRotateCcw,
   Copy as IconCopy,
   Search as IconSearch,
