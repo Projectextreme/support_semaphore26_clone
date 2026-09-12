@@ -1,202 +1,58 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./home_page.css";
 
+const supportRoutes = [
+  { number: "01", title: "Plan your day", description: "Browse event timings, participation details, venues, and event-specific rules.", action: "View schedule", to: "/events" },
+  { number: "02", title: "Read the general rules", description: "Review the festival-wide requirements before you arrive or take part in an event.", action: "View rules", to: "/rules" },
+  { number: "03", title: "Get support", description: "Send a question to the support team when you need help during Semaphore Fest.", action: "Open help desk", to: "/helpdesk" },
+];
+
 export default function HomePage() {
-  const [introPhase, setIntroPhase] = useState(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    return sessionStorage.getItem("semaphore-intro-seen") || prefersReducedMotion ? "done" : "active";
-  }); // active | exit | done
-  const [introStarted, setIntroStarted] = useState(false);
-  const [step, setStep] = useState(0);
-  const [countdown, setCountdown] = useState({ days: '00', hours: '00', minutes: '00' });
-
-  useEffect(() => {
-    if (introPhase !== "active" || introStarted) return undefined;
-
-    let secondFrame;
-    let startTimer;
-    const firstFrame = requestAnimationFrame(() => {
-      secondFrame = requestAnimationFrame(() => {
-        startTimer = setTimeout(() => setIntroStarted(true), 100);
-      });
-    });
-
-    return () => {
-      cancelAnimationFrame(firstFrame);
-      cancelAnimationFrame(secondFrame);
-      clearTimeout(startTimer);
-    };
-  }, [introPhase, introStarted]);
-
-  useEffect(() => {
-    if (introPhase === "active") {
-      if (!introStarted) return undefined;
-      const exitTimer = setTimeout(() => setIntroPhase("exit"), 2200);
-      return () => clearTimeout(exitTimer);
-    }
-
-    if (introPhase === "exit") {
-      const doneTimer = setTimeout(() => {
-        sessionStorage.setItem("semaphore-intro-seen", "true");
-        setIntroPhase("done");
-      }, 600);
-      return () => clearTimeout(doneTimer);
-    }
-
-    return undefined;
-  }, [introPhase, introStarted]);
-
-  useEffect(() => {
-    if (introPhase !== "done") return;
-    const timers = [
-      setTimeout(() => setStep(1), 80),
-      setTimeout(() => setStep(2), 220),
-      setTimeout(() => setStep(3), 360),
-      setTimeout(() => setStep(4), 500),
-      setTimeout(() => setStep(5), 650),
-      setTimeout(() => setStep(6), 800),
-      setTimeout(() => setStep(7), 950),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, [introPhase]);
-
-  useEffect(() => {
-    const target = new Date('2026-09-17T00:00:00');
-    const tick = () => {
-      const diff = target - Date.now();
-      if (diff <= 0) { setCountdown({ days: '00', hours: '00', minutes: '00' }); return; }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      setCountdown({
-        days:    String(d).padStart(2, '0'),
-        hours:   String(h).padStart(2, '0'),
-        minutes: String(m).padStart(2, '0'),
-      });
-    };
-    tick();
-    // The UI only displays minutes, so updating every second wastes work.
-    const id = setInterval(tick, 60000);
-    return () => clearInterval(id);
-  }, []);
-
-
-
   return (
-    <>
-      {introPhase !== "done" && (
-        <div className={`intro-overlay${introStarted ? " intro-ready" : ""}${introPhase === "exit" ? " intro-exit" : ""}`} aria-hidden="true">
-
-          {/* noise texture */}
-          <div className="intro-noise" />
-
-          {/* glow bloom */}
-          <div className="intro-glow" />
-
-          {/* top rule */}
-          <div className="intro-rule intro-rule-top" />
-
-          {/* center */}
-          <div className="intro-center">
-            <p className="intro-tag">◆ &nbsp; SUPPORT CENTER &nbsp; ◆</p>
-
-            <div className="intro-title-wrap">
-              <h1 className="intro-title">
-                <span className="intro-word intro-word-1">SEMAPHORE</span>
-                <span className="intro-word intro-word-2">FEST</span>
-                <span className="intro-word intro-word-3">2026</span>
-              </h1>
-              <div className="intro-underline" />
-            </div>
-
-            <p className="intro-sub">September 17 &nbsp;·&nbsp; Official Support</p>
+    <div className="home">
+      <main id="home" className="home-hero">
+        <div className="hero-copy">
+          <p className="eyebrow">Semaphore Fest 2026 · September 17–18</p>
+          <h1 className="headline-motion">
+            <span className="headline-main">Everything you need,</span>
+            <span className="headline-accent"> in one place.</span>
+          </h1>
+          <p className="hero-description">The official support space for Semaphore Fest. Check the programme, understand the guidelines, or get in touch with our team.</p>
+          <div className="hero-actions">
+            <Link to="/events" className="primary-btn">Explore events</Link>
+            <Link to="/helpdesk" className="secondary-btn">Contact support</Link>
           </div>
-
-          {/* bottom rule */}
-          <div className="intro-rule intro-rule-bottom" />
-
-          {/* corner marks */}
-          <span className="intro-corner tl" />
-          <span className="intro-corner tr" />
-          <span className="intro-corner bl" />
-          <span className="intro-corner br" />
         </div>
-      )}
-
-      <div className="home">
-        <div className="blob blob-1" aria-hidden="true" />
-        <div className="blob blob-2" aria-hidden="true" />
-
-        <main id="home" className="hero">
-          <div className="hero-content">
-
-            <p className={`small-title hero-anim${step >= 1 ? " show" : ""}`}>
-              SEMAPHORE FEST 2026
-            </p>
-
-            <h1>
-              <span className={`hero-anim delay-1${step >= 2 ? " show" : ""}`}>Need Help?</span>
-              <br />
-              <span className={`hero-anim delay-2 accent${step >= 3 ? " show" : ""}`}>We've Got You.</span>
-            </h1>
-
-            <p className={`description hero-anim delay-3${step >= 4 ? " show" : ""}`}>
-              Welcome to the official Semaphore Fest support center.
-              Find the information you need and get quick assistance throughout the fest.
-            </p>
-
-            <div className="buttons">
-              <Link to="/checklist" className={`primary-btn hero-anim delay-4${step >= 5 ? " show" : ""}`}>
-                Participant Checklist
-              </Link>
-              <Link to="/helpdesk" className={`secondary-btn hero-anim delay-5${step >= 6 ? " show" : ""}`}>
-                Contact Support
-              </Link>
-            </div>
+        <aside className="festival-note" aria-label="Festival support information">
+          <div className="note-heading">
+            <p className="eyebrow">Festival support</p>
+            <span className="support-state"><i /> Available throughout the fest</span>
           </div>
-
-          <div className={`event-card hero-anim card-slide${step >= 7 ? " show" : ""}`}>
-            <p className="card-label">EVENT STATUS</p>
-            <h2>Semaphore Fest 2026</h2>
-            <div className="status">
-              <span className="status-dot" />
-              Support is Online
-            </div>
-            <div className="countdown">
-              <div><strong>{countdown.days}</strong><small>DAYS</small></div>
-              <div><strong>{countdown.hours}</strong><small>HOURS</small></div>
-              <div><strong>{countdown.minutes}</strong><small>MINUTES</small></div>
-            </div>
+          <div className="note-rule" />
+          <div className="note-details">
+            <div><span>When</span><strong>17–18 September</strong></div>
+            <div><span>For</span><strong>Events, rules &amp; queries</strong></div>
           </div>
-        </main>
-
-        <section id="help" className="help-section">
-          <p className="small-title">QUICK ASSISTANCE</p>
-          <h2>How can we help?</h2>
-
-          <div className="help-grid">
-            <div className="help-card">
-              <h3>Participant Checklist</h3>
-              <p>Check all the documents, campus requirements and event-specific requirements before attending Semaphore Fest.</p>
-              <Link to="/checklist" className="card-btn">Open Checklist</Link>
-            </div>
-
-            <div className="help-card">
-              <h3>Event Information</h3>
-              <p>Find information about events, schedules, venues and participation.</p>
-              <Link to="/events" className="card-btn">Browse Events</Link>
-            </div>
-
-            <div className="help-card">
-              <h3>Contact Support</h3>
-              <p>Need help? Reach out to our support team and we'll assist you throughout Semaphore Fest 2026.</p>
-              <Link to="/helpdesk" className="card-btn">Open Help Desk</Link>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </>
+          <Link to="/rules" className="text-link">Read the general rules <span aria-hidden="true">→</span></Link>
+        </aside>
+      </main>
+      <section id="help" className="help-section" aria-labelledby="help-title">
+        <div className="section-intro">
+          <p className="eyebrow">Quick assistance</p>
+          <h2 id="help-title">Find what you need</h2>
+          <p>Clear information for a smoother festival experience.</p>
+        </div>
+        <div className="help-grid">
+          {supportRoutes.map((route) => (
+            <article className="help-card" key={route.number}>
+              <span className="route-number">{route.number}</span>
+              <h3>{route.title}</h3>
+              <p>{route.description}</p>
+              <Link to={route.to} className="card-btn">{route.action} <span aria-hidden="true">→</span></Link>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

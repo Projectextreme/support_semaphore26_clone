@@ -6,9 +6,9 @@ import { Footer } from './components/footer';
 
 const HomePage = lazy(() => import('./pages/home_page'));
 const ArrivalPage = lazy(() => import('./pages/arrival_page'));
-const ChecklistPage = lazy(() => import('./pages/checklist_page'));
 const EventsPage = lazy(() => import('./pages/events_page'));
 const FaqPage = lazy(() => import('./pages/faq_page'));
+const RulesPage = lazy(() => import('./pages/rules_page'));
 const Helpdesk = lazy(() => import('./pages/helpdesk'));
 const CampusPage = lazy(() => import('./pages/campus_page'));
 
@@ -33,8 +33,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/arrival" element={<ArrivalPage />} />
-            <Route path="/checklist" element={<ChecklistPage />} />
             <Route path="/faq" element={<FaqPage />} />
+            <Route path="/rules" element={<RulesPage />} />
             <Route path="/helpdesk" element={<Helpdesk />} />
             <Route path="/campus" element={<CampusPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />

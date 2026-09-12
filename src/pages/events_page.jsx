@@ -8,12 +8,12 @@ const eventLogos = {
   'Coral Canvas': '/Events_LOGO/coral_canvas.png',
   'Aqua Byte': '/Events_LOGO/aquabyte.png',
   'Abyss Arena': '/Events_LOGO/abyss_arena.png',
-  AquaVerse: '/Events_LOGO/aquaverse.png',
+  'AquaVerse': '/Events_LOGO/aquaverse.png',
   'Ocean Enigma': '/Events_LOGO/ocean_enigma.png',
-  Leviathan: '/Events_LOGO/leviathan.png',
+  'Leviathan': '/Events_LOGO/leviathan.png',
   'The Meg Pitch': '/Events_LOGO/mega_pitch.png',
-  Submarine: '/Events_LOGO/submarine.png',
-  Narcissa: '/Events_LOGO/tide_tailor.png',
+  'Submarine': '/Events_LOGO/submarine.png',
+  Narcissa: '/Events_LOGO/tide_tailor.png'
 };
 
 function parseHead(head, role) {

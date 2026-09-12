@@ -20,7 +20,6 @@ export function Footer() {
           <h3>Quick Links</h3>
           <div className="footer-link-grid">
             <Link to="/events">Events</Link>
-            <Link to="/checklist">Checklist</Link>
             <Link to="/arrival">Arrival Guide</Link>
             <Link to="/faq">FAQ &amp; Rules</Link>
             <Link to="/campus">Campus Map</Link>

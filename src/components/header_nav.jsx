@@ -10,8 +10,8 @@ const navigationItems = [
   { label: 'Events', to: '/events' },
   { label: 'Arrival Guide', to: '/arrival' },
   { label: 'Campus Map', to: '/campus' },
-  { label: 'Checklist', to: '/checklist' },
-  { label: 'FAQ & Rules', to: '/faq' },
+  { label: 'Rules', to: '/rules' },
+  { label: 'FAQ', to: '/faq' },
 ];
 
 function HeaderNav() {

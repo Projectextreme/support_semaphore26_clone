@@ -382,9 +382,15 @@
 
   font-size: 0.78rem;
   font-weight: 800;
+  line-height: 1;
+  text-align: center;
 
   box-shadow:
     0 5px 15px rgba(2, 132, 199, 0.15);
+}
+
+.helpdesk-avatar > span {
+  display: inline-block;
 }
 
 .helpdesk-person div {
@@ -394,6 +400,11 @@
 .helpdesk-person strong,
 .helpdesk-person span {
   display: block;
+}
+
+.helpdesk-person .helpdesk-avatar {
+  display: grid;
+  place-items: center;
 }
 
 .helpdesk-person strong {

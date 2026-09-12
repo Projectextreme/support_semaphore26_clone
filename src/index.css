@@ -19,6 +19,77 @@
 }
 
 /* ---------------------------------------------------------
+   ACCESS-FIRST / LOW-MOTION BASELINE
+   Keep content immediate and interactions lightweight across
+   the site, including devices that do not advertise a reduced-
+   motion preference.
+   --------------------------------------------------------- */
+
+html {
+  scroll-behavior: auto !important;
+}
+
+*,
+*::before,
+*::after {
+  animation: none !important;
+  transition-duration: 120ms !important;
+  transition-delay: 0ms !important;
+}
+
+/* Decorative layers add rendering cost but no information. */
+.intro-overlay,
+.header-ambient,
+.home .blob,
+.ac-particles,
+.ac-orb,
+.ac-section::after,
+.header-scanline {
+  display: none !important;
+}
+
+/* Do not hold useful homepage content behind entrance timers. */
+.hero-anim,
+.hero-anim.show,
+.card-slide,
+.card-slide.show {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Static arrival content remains readable without JS motion. */
+.ac-section *,
+.ac-step,
+.ac-card {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Large live blur surfaces are expensive on low-end devices. */
+.site-header,
+.menu-inner,
+.modal-backdrop,
+.event-modal-category,
+.modal-close-btn,
+.ac-step,
+.ac-btn-outline,
+.map-brand-overlay,
+.map-help-overlay,
+.map-pin-tooltip {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------
    ROOT
    --------------------------------------------------------- */
 
@@ -285,8 +356,7 @@ section {
   .header-ambient,
   .home .blob,
   .ac-orb,
-  .ac-section::after,
-  .checklist-page-wrapper::after {
+  .ac-section::after {
     display: none !important;
     animation: none !important;
   }
@@ -322,8 +392,6 @@ section {
   .modal-backdrop,
   .ac-step,
   .ac-btn-outline,
-  .checklist-hero-card,
-  .checklist-filter-toolbar,
   .map-brand-overlay,
   .map-help-overlay {
     backdrop-filter: none !important;

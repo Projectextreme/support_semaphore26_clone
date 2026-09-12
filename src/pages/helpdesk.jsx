@@ -21,7 +21,7 @@ function Coordinator({ coordinator, copiedPhone, onCopy }) {
   return (
     <div className="helpdesk-coordinator">
       <div className="helpdesk-person">
-        <span className="helpdesk-avatar" aria-hidden="true">{coordinator.name.charAt(0)}</span>
+        <span className="helpdesk-avatar" aria-hidden="true"><span>{coordinator.name.charAt(0)}</span></span>
         <div><strong>{coordinator.name}</strong><span>Event coordinator</span></div>
       </div>
       <a className="helpdesk-phone-number" href={`tel:+${internationalPhone}`}>+91 {coordinator.phone}</a>
